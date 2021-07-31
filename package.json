@@ -1,0 +1,19 @@
+{
+  "name": "vts-mario-linker",
+  "version": "0.5.0",
+  "description": "",
+  "main": "hawk-connector.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vtubestudio": "^0.3.0",
+    "websocket": "^1.0.34"
+  },
+  "devDependencies": {
+    "@types/node": "^16.4.7",
+    "typescript": "^4.3.5"
+  }
+}
