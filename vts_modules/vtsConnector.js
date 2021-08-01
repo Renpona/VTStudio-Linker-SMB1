@@ -35,6 +35,9 @@ function parseResponse(response, connection) {
         auth.token = response.data.authenticationToken;
         connection.send(auth.tokenAuth());
     }
+    else if (response.messageType == "AuthenticationResponse" && response.data.authenticated == true) {
+        powerup(0);
+    }
 }
 
 class Colors {
@@ -68,6 +71,53 @@ function recolorMesh(color, mesh, rainbow = false, tintAll = false) {
     vtsConnection.send(request);
 }
 
+class MoveResizeRotate {
+    constructor(time = 0.5, relative = false) {
+        this.timeInSeconds = time;
+        this.valuesAreRelativeToModel = relative;
+    }
+    move(x, y) {
+        this.positionX = x;
+        this.positionY = y;
+    }
+    resize(size) {
+        this.size = size;
+    }
+    rotate(rotation) {
+        this.rotation = rotation;
+    }
+    send() {
+        let request = utils.buildRequest("MoveModelRequest", this);
+        vtsConnection.send(request);
+    }
+}
+
+function resize(value, relative = false, time = 0.5) {
+    let data = {
+        "timeInSeconds": time,
+        "valuesAreRelativeToModel": relative,
+        "size": value
+    }
+    let request = utils.buildRequest("MoveModelRequest", data);
+    vtsConnection.send(request);
+    //size: -95
+    //size: -98
+}
+
+function reposition(x, y, relative = true) {
+    let data = {
+        "timeInSeconds": 0,
+        "valuesAreRelativeToModel": relative,
+        "positionX": x,
+        "positionY": y
+    }
+    let request = utils.buildRequest("MoveModelRequest", data);
+    vtsConnection.send(request);
+    //"positionX": 0.18,
+    //"positionY": -0.28
+    //"positionY": -0.58
+}
+
 function powerup(level) {
     switch (level) {
         case 0:
@@ -85,19 +135,29 @@ function powerup(level) {
 }
 
 function smallMario() {
-    //TODO: Add support for the VTS "resize avatar" call
     console.log("smol handler reached!");
     let color = new Colors(255, 255, 255, 255);
     let target = hairColor.concat(eyeColor);
     recolorMesh(color, target, false, false);
+    let request = new MoveResizeRotate(0.5, false);
+    request.resize(-98);
+    request.move(0.18, -0.58)
+    request.send();
+    //resize(-98);
+    //reposition(0.18, -0.58, false);
 }
 
 function bigMario() {
-    //TODO: Add support for the VTS "resize avatar" call
     console.log("big handler reached!");
     let color = new Colors(255, 255, 255, 255);
     let target = hairColor.concat(eyeColor);
     recolorMesh(color, target, false, false);
+    let request = new MoveResizeRotate(0.5, false);
+    request.resize(-95);
+    request.move(0.18, -0.28)
+    request.send();
+    //resize(-95);
+    //reposition(0.18, -0.28, false);
 }
 
 function fireMario() {
@@ -107,6 +167,7 @@ function fireMario() {
 }
 
 function starMario(starActive) {
+    //TODO: handle what happens when getting a powerup while invincible
     if (starActive == true) {
         let color = new Colors(255, 255, 255, 255);
         let target = hairColor.concat(eyeColor);
