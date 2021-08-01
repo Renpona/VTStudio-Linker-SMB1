@@ -22,7 +22,7 @@ wsClient.on('connect', function (connection) {
     });
     connection.on('message', function (message) {
         if (message.type === 'utf8') {
-            console.log('Received Message: ' + message.utf8Data);
+            //console.log('Received Message: ' + message.utf8Data);
             parseResponse(JSON.parse(message.utf8Data), connection);
         }
     });
@@ -30,7 +30,7 @@ wsClient.on('connect', function (connection) {
 });
 
 function parseResponse(response, connection) {
-    console.log(response);
+    //console.log(response);
     if (!auth.token) {
         auth.token = response.data.authenticationToken;
         connection.send(auth.tokenAuth());
@@ -135,7 +135,6 @@ function powerup(level) {
 }
 
 function smallMario() {
-    console.log("smol handler reached!");
     let color = new Colors(255, 255, 255, 255);
     let target = hairColor.concat(eyeColor);
     recolorMesh(color, target, false, false);
@@ -148,7 +147,6 @@ function smallMario() {
 }
 
 function bigMario() {
-    console.log("big handler reached!");
     let color = new Colors(255, 255, 255, 255);
     let target = hairColor.concat(eyeColor);
     recolorMesh(color, target, false, false);

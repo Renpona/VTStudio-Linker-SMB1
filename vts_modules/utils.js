@@ -10,7 +10,7 @@ function buildRequest(type, data, requestId = "testId") {
     request.requestID = requestId;
     request.data = data;
     let returnValue = JSON.stringify(request);
-    console.log(returnValue);
+    //console.log(returnValue);
     return returnValue;
 }
 

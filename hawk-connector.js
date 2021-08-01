@@ -21,7 +21,7 @@ server.on('connection', function(socket) {
     vtsConnection.connect();
     
     socket.on('data', function(chunk) {
-        console.log(`Data received from client: \n${chunk.toString()}`);
+        //console.log(`Data received from client: \n${chunk.toString()}`);
         processChunk(chunk);
     });
     socket.on('drain', function() {
@@ -48,15 +48,16 @@ function processChunk(chunk) {
     switch (data.type) {
         case "power":
             if (gameState.power != value) {
-                console.log("send powerup");
+                console.log("Mario powerup " + value + ": send ColorTintRequest");
                 gameState.power = value;
                 vtsConnection.powerup(value);
             }
-            else console.log("don't send powerup");
+            //else console.log("don't send powerup");
             break;
         case "star":
             if (gameState.star != value) {
                 gameState.star = value;
+                console.log("Star status " + value + ": send ColorTintRequest")
                 vtsConnection.star(value);
                 if (value == false) {
                     vtsConnection.powerup(gameState.power);
@@ -66,12 +67,14 @@ function processChunk(chunk) {
         case "jump":
             if (gameState.jump != value) {
                 gameState.jump = value;
+                console.log("Jump status " + value + ": send MoveModelRequest")
                 vtsConnection.jump(value, gameState.power);
             }
             break;
         case "swim":
             if (gameState.swim != value) {
                 gameState.swim = value;
+                console.log("Swim mode " + value + ": send ColorTintRequest")
                 if (value == true) {
                     vtsConnection.swim();
                 }
