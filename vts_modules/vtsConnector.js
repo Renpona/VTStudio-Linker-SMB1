@@ -87,11 +87,17 @@ function powerup(level) {
 function smallMario() {
     //TODO: Add support for the VTS "resize avatar" call
     console.log("smol handler reached!");
+    let color = new Colors(255, 255, 255, 255);
+    let target = hairColor.concat(eyeColor);
+    recolorMesh(color, target, false, false);
 }
 
 function bigMario() {
     //TODO: Add support for the VTS "resize avatar" call
     console.log("big handler reached!");
+    let color = new Colors(255, 255, 255, 255);
+    let target = hairColor.concat(eyeColor);
+    recolorMesh(color, target, false, false);
 }
 
 function fireMario() {
