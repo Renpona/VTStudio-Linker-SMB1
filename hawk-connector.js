@@ -66,7 +66,7 @@ function processChunk(chunk) {
         case "jump":
             if (gameState.jump != value) {
                 gameState.jump = value;
-                vtsConnection.jump(value);
+                vtsConnection.jump(value, gameState.power);
             }
             break;
         case "swim":

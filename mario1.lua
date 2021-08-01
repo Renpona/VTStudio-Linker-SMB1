@@ -62,7 +62,7 @@ function jumpWatcher()
     else 
         value = false 
     end
-    console.log(value)
+    --console.log(value)
     if jump ~= value then 
         local packet = {type="jump", value=value}
         jump = packet["value"]
@@ -77,8 +77,8 @@ event.onmemorywrite(swimWatcher, addSwimMode)
 
 while true do
     local frame = emu.framecount()
-    --if frame % 10 == 0 then
-    --    jumpWatcher()
-    --end
+    if frame % 10 == 0 then
+        jumpWatcher()
+    end
     emu.frameadvance();
 end

@@ -139,7 +139,7 @@ function smallMario() {
     let color = new Colors(255, 255, 255, 255);
     let target = hairColor.concat(eyeColor);
     recolorMesh(color, target, false, false);
-    let request = new MoveResizeRotate(0.5, false);
+    let request = new MoveResizeRotate(0, false);
     request.resize(-98);
     request.move(0.18, -0.58)
     request.send();
@@ -152,9 +152,9 @@ function bigMario() {
     let color = new Colors(255, 255, 255, 255);
     let target = hairColor.concat(eyeColor);
     recolorMesh(color, target, false, false);
-    let request = new MoveResizeRotate(0.5, false);
+    let request = new MoveResizeRotate(0, false);
     request.resize(-95);
-    request.move(0.18, -0.28);
+    request.move(0.18, -0.30);
     request.send();
     //resize(-95);
     //reposition(0.18, -0.28, false);
@@ -178,12 +178,18 @@ function starMario(starActive) {
     }
 }
 
-function jumpMario(jumpValue) {
-    let request = new MoveResizeRotate(0, true);
+function jumpMario(jumpValue, marioSize) {
+    let request = new MoveResizeRotate(0.3, false);
+    let baseX = 0.18;
+    let baseY = -0.58;
+    let modifier = 0.05;
+    if (marioSize > 0) {
+        baseY = -0.30;
+    }
     if (jumpValue == true) {
-        request.move(0, 0.2);
+        request.move(baseX, baseY + modifier);
     } else {
-        request.move(0, -0.2);
+        request.move(baseX, baseY);
     }
     request.send();
 }
