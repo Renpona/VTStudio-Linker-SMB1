@@ -56,6 +56,9 @@ function processChunk(chunk) {
             if (gameState.star != value) {
                 gameState.star = value;
                 vtsConnection.star(value);
+                if (value == false) {
+                    vtsConnection.powerup(gameState.power);
+                }
             }
             break;
         case "swim":

@@ -100,10 +100,15 @@ function fireMario() {
     recolorMesh(color, target);
 }
 
-function starMario() {
-    let color = new Colors(255, 255, 255, 255);
-    let target = hairColor.concat(eyeColor);
-    recolorMesh(color, target, true, true);
+function starMario(starActive) {
+    if (starActive == true) {
+        let color = new Colors(255, 255, 255, 255);
+        let target = hairColor.concat(eyeColor);
+        recolorMesh(color, target, true, true);
+    } else {
+        let color = new Colors(255, 255, 255, 255);
+        recolorMesh(color, null, false, true);
+    }
 }
 
 function connectToVts() {
