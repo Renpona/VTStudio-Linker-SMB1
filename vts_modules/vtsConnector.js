@@ -154,7 +154,7 @@ function bigMario() {
     recolorMesh(color, target, false, false);
     let request = new MoveResizeRotate(0.5, false);
     request.resize(-95);
-    request.move(0.18, -0.28)
+    request.move(0.18, -0.28);
     request.send();
     //resize(-95);
     //reposition(0.18, -0.28, false);
@@ -178,6 +178,22 @@ function starMario(starActive) {
     }
 }
 
+function jumpMario(jumpValue) {
+    let request = new MoveResizeRotate(0, true);
+    if (jumpValue == true) {
+        request.move(0, 0.2);
+    } else {
+        request.move(0, -0.2);
+    }
+    request.send();
+}
+
+function swimMario() {
+    let color = new Colors(135, 135, 255, 255);
+    let target = hairColor;
+    recolorMesh(color, target, false, false);
+}
+
 function connectToVts() {
     wsClient.connect('ws://localhost:' + vtsPort);
 }
@@ -186,5 +202,7 @@ module.exports = {
     connection: vtsConnection,
     powerup: powerup,
     star: starMario,
+    jump: jumpMario,
+    swim: swimMario,
     connect: connectToVts
 };

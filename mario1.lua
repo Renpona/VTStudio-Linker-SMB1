@@ -4,11 +4,12 @@ memory.usememorydomain("System Bus")
 addPowerup = 0x0756
 addStarTimer = 0x079F
 addSwimMode = 0x0704
-addLevelPalette = 0x0773
+addJumpState = 0x001D
 
 power = 0
 star = false
 swim = false
+jump = false
 
 local function sendData(data)
 	packet = json.encode(data)
@@ -53,10 +54,31 @@ function swimWatcher()
     end
 end
 
+function jumpWatcher()
+    --0 is grounded, 1 is jumping, 2 is walking off ledge, 3 is flagpole
+    value = memory.readbyte(addJumpState)
+    if value == 1 then 
+        value = true
+    else 
+        value = false 
+    end
+    console.log(value)
+    if jump ~= value then 
+        local packet = {type="jump", value=value}
+        jump = packet["value"]
+        sendData(packet)
+    end
+end
+
 event.onmemorywrite(powerupWatcher, addPowerup)
 event.onmemorywrite(starWatcher, addStarTimer)
 event.onmemorywrite(swimWatcher, addSwimMode)
+--event.onmemorywrite(jumpWatcher, addJumpState)
 
 while true do
+    local frame = emu.framecount()
+    --if frame % 10 == 0 then
+    --    jumpWatcher()
+    --end
     emu.frameadvance();
 end

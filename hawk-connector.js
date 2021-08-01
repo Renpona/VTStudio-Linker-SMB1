@@ -6,6 +6,7 @@ var gameState = {
     "power": 0,
     "star": false,
     "jump": false,
+    "swim": false
 }
 
 const server = Net.createServer();
@@ -39,6 +40,7 @@ function processChunk(chunk) {
     try {
         data = JSON.parse(chunk);
     } catch (error) {
+        console.log("ERROR combined packet recieved: " + chunk);
         return;
     }
     
@@ -61,8 +63,22 @@ function processChunk(chunk) {
                 }
             }
             break;
+        case "jump":
+            if (gameState.jump != value) {
+                gameState.jump = value;
+                vtsConnection.jump(value);
+            }
+            break;
         case "swim":
-            console.log("swim " + value);
+            if (gameState.swim != value) {
+                gameState.swim = value;
+                if (value == true) {
+                    vtsConnection.swim();
+                }
+                else {
+                    vtsConnection.powerup(gameState.power);
+                }
+            }
             break;
         default:
             break;
