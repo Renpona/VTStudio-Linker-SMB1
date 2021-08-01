@@ -9,11 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "vtubestudio": "^0.3.0",
     "websocket": "^1.0.34"
   },
   "devDependencies": {
-    "@types/node": "^16.4.7",
-    "typescript": "^4.3.5"
+    "@types/node": "^16.4.7"
   }
 }
