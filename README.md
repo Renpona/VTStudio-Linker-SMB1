@@ -7,6 +7,7 @@ This is a collection of tools that read the memory of Super Mario Bros. 1 via Bi
 * Node.js
 * The Bizhawk emulator
 * A VTubeStudio beta version with API support
+* The ability to identify the artmesh IDs in your avatar that you want to change in response to events
 * In vtsConnector.js, edit the "const hairColor" and "const eyeColor" lines to contain the names of the artmeshes in your avatar that you want to be used for normal color changes.
 
 ## Usage

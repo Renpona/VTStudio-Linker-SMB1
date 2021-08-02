@@ -70,12 +70,15 @@ function jumpWatcher()
     end
 end
 
+--event handlers that watch specific memory addresses and call a function whenever those addresses are changed
 event.onmemorywrite(powerupWatcher, addPowerup)
 event.onmemorywrite(starWatcher, addStarTimer)
 event.onmemorywrite(swimWatcher, addSwimMode)
 --event.onmemorywrite(jumpWatcher, addJumpState)
 
 while true do
+    --if an address is changed too often, an event handler will slow down the game
+    --so for those problematic addresses, we manually check those addresses every X number of frames
     local frame = emu.framecount()
     if frame % 10 == 0 then
         jumpWatcher()
