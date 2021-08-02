@@ -92,32 +92,6 @@ class MoveResizeRotate {
     }
 }
 
-function resize(value, relative = false, time = 0.5) {
-    let data = {
-        "timeInSeconds": time,
-        "valuesAreRelativeToModel": relative,
-        "size": value
-    }
-    let request = utils.buildRequest("MoveModelRequest", data);
-    vtsConnection.send(request);
-    //size: -95
-    //size: -98
-}
-
-function reposition(x, y, relative = true) {
-    let data = {
-        "timeInSeconds": 0,
-        "valuesAreRelativeToModel": relative,
-        "positionX": x,
-        "positionY": y
-    }
-    let request = utils.buildRequest("MoveModelRequest", data);
-    vtsConnection.send(request);
-    //"positionX": 0.18,
-    //"positionY": -0.28
-    //"positionY": -0.58
-}
-
 function powerup(level) {
     switch (level) {
         case 0:
