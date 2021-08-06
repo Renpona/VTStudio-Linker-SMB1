@@ -40,6 +40,12 @@ function parseResponse(response, connection) {
     }
 }
 
+/* TODO:
+    Shuffle off most of these request builders to a separate file
+    The artmesh IDs should be read from a JSON file or something instead of hardcoded like this
+    Probably should also put the game-specific stuff in a separate file
+    This will probably be part of a larger project-wide code reorganization necessary for user customization support
+*/
 class Colors {
     constructor(red, green, blue, alpha) {
         this.red = red;

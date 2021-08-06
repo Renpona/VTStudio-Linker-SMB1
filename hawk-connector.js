@@ -45,6 +45,11 @@ function processChunk(chunk) {
     }
     
     let value = data.value;
+    /* 
+        TODO:
+        separate this into two pieces - one to update state, then one to evaluate what should be done based on total overall state
+        with the current semi-stateless method of updating based on last change, it's hard to account for which things should override each other without messy piecemeal stuff
+    */
     switch (data.type) {
         case "power":
             if (gameState.power != value) {
