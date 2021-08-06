@@ -178,6 +178,17 @@ function swimMario() {
     recolorMesh(color, target, false, false);
 }
 
+function death() {
+    let deathJump = new MoveResizeRotate(0.4, true);
+    deathJump.move(0, 0.2);
+    deathJump.send();
+    setTimeout(function() {
+        let deathFall = new MoveResizeRotate(2, true);
+        deathFall.move(0, -2.20);
+        deathFall.send();
+    }, 450);
+}
+
 function connectToVts() {
     wsClient.connect('ws://localhost:' + vtsPort);
 }
@@ -188,5 +199,6 @@ module.exports = {
     star: starMario,
     jump: jumpMario,
     swim: swimMario,
+    death: death,
     connect: connectToVts
 };

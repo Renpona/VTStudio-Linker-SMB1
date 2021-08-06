@@ -53,11 +53,12 @@ function processChunk(chunk) {
     switch (data.type) {
         case "power":
             if (gameState.power != value) {
-                console.log("Mario powerup " + value + ": send ColorTintRequest");
                 gameState.power = value;
+                //TODO: temporary - see comment at top of switch
+                if (gameState.death == true) return;
+                console.log("Mario powerup " + value + ": send MoveModelRequest and ColorTintRequest");
                 vtsConnection.powerup(value);
             }
-            //else console.log("don't send powerup");
             break;
         case "star":
             if (gameState.star != value) {
@@ -72,6 +73,8 @@ function processChunk(chunk) {
         case "jump":
             if (gameState.jump != value) {
                 gameState.jump = value;
+                //TODO: temporary - see comment at top of switch
+                if (gameState.death == true) return;
                 console.log("Jump status " + value + ": send MoveModelRequest")
                 vtsConnection.jump(value, gameState.power);
             }
@@ -84,6 +87,19 @@ function processChunk(chunk) {
                     vtsConnection.swim();
                 }
                 else {
+                    vtsConnection.powerup(gameState.power);
+                }
+            }
+            break;
+        case "death":
+            if (gameState.death != value) {
+                gameState.death = value;
+                console.log("Death state " + value + ": send MoveModelRequest")
+                if (value == true) {
+                    vtsConnection.death();
+                }
+                else {
+                    gameState.power = 0;
                     vtsConnection.powerup(gameState.power);
                 }
             }
