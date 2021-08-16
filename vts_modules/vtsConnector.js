@@ -119,7 +119,7 @@ function smallMario() {
     let target = hairColor.concat(eyeColor);
     recolorMesh(color, target, false, false);
     let request = new MoveResizeRotate(0, false);
-    request.resize(-98);
+    request.resize(-88);
     request.move(0.18, -0.58)
     request.send();
     //resize(-98);
@@ -131,7 +131,7 @@ function bigMario() {
     let target = hairColor.concat(eyeColor);
     recolorMesh(color, target, false, false);
     let request = new MoveResizeRotate(0, false);
-    request.resize(-95);
+    request.resize(-85);
     request.move(0.18, -0.30);
     request.send();
     //resize(-95);
